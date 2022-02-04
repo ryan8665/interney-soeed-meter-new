@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "92289237544",
+    "project_id": "internet-speed-meter-f8609",
+    "storage_bucket": "internet-speed-meter-f8609.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:92289237544:android:e7530fb727af065855ab1d",
+        "android_client_info": {
+          "package_name": "com.PersianGeeks.internetspeedmeterpro.lite"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "92289237544-9jicuc1h961ugj60bat2lqhiunlbn8nm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrCUUz4MItRXY3z4ov0Wl5YU43QTzHob4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "92289237544-9jicuc1h961ugj60bat2lqhiunlbn8nm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
