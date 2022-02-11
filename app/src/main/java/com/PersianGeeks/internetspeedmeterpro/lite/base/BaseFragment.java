@@ -68,7 +68,21 @@ public class BaseFragment extends Fragment {
         return true;
     }
 
+    protected String appVersion() {
+        try {
+            PackageInfo pInfo = getContext().getPackageManager().getPackageInfo(getContext().getPackageName(), 0);
+            return pInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return "";
+        }
 
+    }
+
+    protected boolean showAds() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        return prefs.getBoolean("showAds", true);
+    }
 
 
 }

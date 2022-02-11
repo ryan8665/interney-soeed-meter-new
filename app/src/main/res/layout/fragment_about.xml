@@ -91,7 +91,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
                         android:layout_marginBottom="8dp"
-                        android:src="@drawable/connector"
+                        android:src="@drawable/ic_launcher_web"
 
                         app:layout_constraintBottom_toTopOf="@+id/aboutHead"
                         app:layout_constraintEnd_toEndOf="parent"

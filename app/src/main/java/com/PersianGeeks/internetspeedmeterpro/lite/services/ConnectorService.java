@@ -35,6 +35,7 @@ import com.PersianGeeks.internetspeedmeterpro.lite.statics.Data;
 import com.PersianGeeks.internetspeedmeterpro.lite.util.Empty;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -114,16 +115,18 @@ public class ConnectorService extends Service {
                     d = calculateData(rxBPS);
                     u = calculateData(txBPS);
                     Data.setData(s, d, u, txBPS + rxBPS, rxBPS, txBPS);
-                    publishData(s, d, u);
-                    showNotification(
-                            getResources().getString(R.string.speed) + ": "
-                                    + s,
-                            getResources().getString(R.string.download)
-                                    + ": "
-                                    + d
-                                    + "  "
-                                    + getResources().getString(
-                                    R.string.upload) + ": " + u);
+                    publishData(s, d, u,txBPS + rxBPS, rxBPS, txBPS);
+
+                        showNotification(
+                                getResources().getString(R.string.speed) + ": "
+                                        + s,
+                                getResources().getString(R.string.download)
+                                        + ": "
+                                        + d
+                                        + "  "
+                                        + getResources().getString(
+                                        R.string.upload) + ": " + u);
+
                 } else {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         stopForeground(STOP_FOREGROUND_REMOVE);
@@ -171,6 +174,28 @@ public class ConnectorService extends Service {
             } else {
                 if ((a / 1000) / 1000 >= 1) {
                     res = Math.abs((int) (a / 1000) / 1000) + " " + getResources().getString(R.string.mb);
+                } else {
+                    res = Math.abs((int) a / 1000) + " " + getResources().getString(R.string.kb);
+                }
+            }
+
+        } else {
+            res = Math.abs((int) a) + " " + getResources().getString(R.string.b);
+        }
+        return res;
+
+    }
+
+    private String calculateSpeed(double a) {
+        NumberFormat formatter = new DecimalFormat("#0.0");
+        String res;
+
+        if (a / 1000 >= 1) {
+            if ((a / 1000) / 1000000 >= 1) {
+                res = Math.abs((int) (a / 1000) / 1000000) + " GB/s";
+            } else {
+                if ((a / 1000) / 1000 >= 1) {
+                    res = formatter.format(Math.abs( (a / 1000) / 1000))+ " " + getResources().getString(R.string.mb);
                 } else {
                     res = Math.abs((int) a / 1000) + " " + getResources().getString(R.string.kb);
                 }
@@ -575,11 +600,15 @@ public class ConnectorService extends Service {
         }
     };
 
-    private void publishData(String speed, String download, String upload) {
+    private void publishData(String speed, String download, String upload,
+                             double all, double rx, double tx) {
         Intent inten = new Intent("speed");
         inten.putExtra("speed", speed);
-        inten.putExtra("download", download);
-        inten.putExtra("upload", upload);
+        inten.putExtra("downloadSpeed", download);
+        inten.putExtra("uploadSpeed", upload);
+        inten.putExtra("all", all);
+        inten.putExtra("rx", rx);
+        inten.putExtra("tx", tx);
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(inten);
     }
 

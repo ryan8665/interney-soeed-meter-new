@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.PersianGeeks.internetspeedmeterpro.lite.base.BaseCompatActivity;
+import com.PersianGeeks.internetspeedmeterpro.lite.statics.Data;
 import com.PersianGeeks.internetspeedmeterpro.lite.ui.about.AboutFragment;
 import com.PersianGeeks.internetspeedmeterpro.lite.ui.home.HomeFragment;
 import com.PersianGeeks.internetspeedmeterpro.lite.ui.options.OptionFragment;
@@ -18,6 +19,22 @@ import androidx.fragment.app.FragmentTransaction;
 
 
 public class MainActivity extends BaseCompatActivity {
+
+    @Override
+    protected void onDestroy() {
+        Data.flag = false;
+        super.onDestroy();
+    }
+    @Override
+    protected void onResume() {
+        Data.flag = true;
+        super.onResume();
+    }
+    @Override
+    protected void onStop() {
+        Data.flag = false;
+        super.onStop();
+    }
 
 
     @Override
